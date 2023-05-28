@@ -1,0 +1,295 @@
+ssh://root@region-42.seetacloud.com:15854/root/miniconda3/bin/python -u /root/autodl-tmp/base_env/BERT-TextCNN/train.py
+Using TensorFlow backend.
+2023-05-05 15:33:37.009947: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcuda.so.1
+2023-05-05 15:33:37.050416: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1561] Found device 0 with properties: 
+pciBusID: 0000:92:00.0 name: NVIDIA GeForce RTX 3080 computeCapability: 8.6
+coreClock: 1.71GHz coreCount: 68 deviceMemorySize: 9.77GiB deviceMemoryBandwidth: 707.88GiB/s
+2023-05-05 15:33:37.050687: W tensorflow/stream_executor/platform/default/dso_loader.cc:55] Could not load dynamic library 'libcudart.so.10.1'; dlerror: libcudart.so.10.1: cannot open shared object file: No such file or directory
+2023-05-05 15:33:37.050742: W tensorflow/stream_executor/platform/default/dso_loader.cc:55] Could not load dynamic library 'libcublas.so.10'; dlerror: libcublas.so.10: cannot open shared object file: No such file or directory
+2023-05-05 15:33:37.050784: W tensorflow/stream_executor/platform/default/dso_loader.cc:55] Could not load dynamic library 'libcufft.so.10'; dlerror: libcufft.so.10: cannot open shared object file: No such file or directory
+2023-05-05 15:33:37.050825: W tensorflow/stream_executor/platform/default/dso_loader.cc:55] Could not load dynamic library 'libcurand.so.10'; dlerror: libcurand.so.10: cannot open shared object file: No such file or directory
+2023-05-05 15:33:37.050865: W tensorflow/stream_executor/platform/default/dso_loader.cc:55] Could not load dynamic library 'libcusolver.so.10'; dlerror: libcusolver.so.10: cannot open shared object file: No such file or directory
+2023-05-05 15:33:37.050906: W tensorflow/stream_executor/platform/default/dso_loader.cc:55] Could not load dynamic library 'libcusparse.so.10'; dlerror: libcusparse.so.10: cannot open shared object file: No such file or directory
+2023-05-05 15:33:37.050946: W tensorflow/stream_executor/platform/default/dso_loader.cc:55] Could not load dynamic library 'libcudnn.so.7'; dlerror: libcudnn.so.7: cannot open shared object file: No such file or directory
+2023-05-05 15:33:37.050955: W tensorflow/core/common_runtime/gpu/gpu_device.cc:1598] Cannot dlopen some GPU libraries. Please make sure the missing libraries mentioned above are installed properly if you would like to use GPU. Follow the guide at https://www.tensorflow.org/install/gpu for how to download and setup the required libraries for your platform.
+Skipping registering GPU devices...
+2023-05-05 15:33:37.051235: I tensorflow/core/platform/cpu_feature_guard.cc:143] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 AVX512F FMA
+2023-05-05 15:33:37.061344: I tensorflow/core/platform/profile_utils/cpu_utils.cc:102] CPU Frequency: 2500000000 Hz
+2023-05-05 15:33:37.065257: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x7f980c000b60 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2023-05-05 15:33:37.065277: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+2023-05-05 15:33:37.066677: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1102] Device interconnect StreamExecutor with strength 1 edge matrix:
+2023-05-05 15:33:37.066690: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1108]      
+Model: "model_2"
+__________________________________________________________________________________________________
+Layer (type)                    Output Shape         Param #     Connected to                     
+==================================================================================================
+Input-Token (InputLayer)        (None, None)         0                                            
+__________________________________________________________________________________________________
+Input-Segment (InputLayer)      (None, None)         0                                            
+__________________________________________________________________________________________________
+Embedding-Token (Embedding)     (None, None, 768)    16226304    Input-Token[0][0]                
+__________________________________________________________________________________________________
+Embedding-Segment (Embedding)   (None, None, 768)    1536        Input-Segment[0][0]              
+__________________________________________________________________________________________________
+Embedding-Token-Segment (Add)   (None, None, 768)    0           Embedding-Token[0][0]            
+                                                                 Embedding-Segment[0][0]          
+__________________________________________________________________________________________________
+Embedding-Position (PositionEmb (None, None, 768)    393216      Embedding-Token-Segment[0][0]    
+__________________________________________________________________________________________________
+Embedding-Norm (LayerNormalizat (None, None, 768)    1536        Embedding-Position[0][0]         
+__________________________________________________________________________________________________
+Embedding-Dropout (Dropout)     (None, None, 768)    0           Embedding-Norm[0][0]             
+__________________________________________________________________________________________________
+Transformer-0-MultiHeadSelfAtte (None, None, 768)    2362368     Embedding-Dropout[0][0]          
+                                                                 Embedding-Dropout[0][0]          
+                                                                 Embedding-Dropout[0][0]          
+__________________________________________________________________________________________________
+Transformer-0-MultiHeadSelfAtte (None, None, 768)    0           Transformer-0-MultiHeadSelfAttent
+__________________________________________________________________________________________________
+Transformer-0-MultiHeadSelfAtte (None, None, 768)    0           Embedding-Dropout[0][0]          
+                                                                 Transformer-0-MultiHeadSelfAttent
+__________________________________________________________________________________________________
+Transformer-0-MultiHeadSelfAtte (None, None, 768)    1536        Transformer-0-MultiHeadSelfAttent
+__________________________________________________________________________________________________
+Transformer-0-FeedForward (Feed (None, None, 768)    4722432     Transformer-0-MultiHeadSelfAttent
+__________________________________________________________________________________________________
+Transformer-0-FeedForward-Dropo (None, None, 768)    0           Transformer-0-FeedForward[0][0]  
+__________________________________________________________________________________________________
+Transformer-0-FeedForward-Add ( (None, None, 768)    0           Transformer-0-MultiHeadSelfAttent
+                                                                 Transformer-0-FeedForward-Dropout
+__________________________________________________________________________________________________
+Transformer-0-FeedForward-Norm  (None, None, 768)    1536        Transformer-0-FeedForward-Add[0][
+__________________________________________________________________________________________________
+Transformer-1-MultiHeadSelfAtte (None, None, 768)    2362368     Transformer-0-FeedForward-Norm[0]
+                                                                 Transformer-0-FeedForward-Norm[0]
+                                                                 Transformer-0-FeedForward-Norm[0]
+__________________________________________________________________________________________________
+Transformer-1-MultiHeadSelfAtte (None, None, 768)    0           Transformer-1-MultiHeadSelfAttent
+__________________________________________________________________________________________________
+Transformer-1-MultiHeadSelfAtte (None, None, 768)    0           Transformer-0-FeedForward-Norm[0]
+                                                                 Transformer-1-MultiHeadSelfAttent
+__________________________________________________________________________________________________
+Transformer-1-MultiHeadSelfAtte (None, None, 768)    1536        Transformer-1-MultiHeadSelfAttent
+__________________________________________________________________________________________________
+Transformer-1-FeedForward (Feed (None, None, 768)    4722432     Transformer-1-MultiHeadSelfAttent
+__________________________________________________________________________________________________
+Transformer-1-FeedForward-Dropo (None, None, 768)    0           Transformer-1-FeedForward[0][0]  
+__________________________________________________________________________________________________
+Transformer-1-FeedForward-Add ( (None, None, 768)    0           Transformer-1-MultiHeadSelfAttent
+                                                                 Transformer-1-FeedForward-Dropout
+__________________________________________________________________________________________________
+Transformer-1-FeedForward-Norm  (None, None, 768)    1536        Transformer-1-FeedForward-Add[0][
+__________________________________________________________________________________________________
+Transformer-2-MultiHeadSelfAtte (None, None, 768)    2362368     Transformer-1-FeedForward-Norm[0]
+                                                                 Transformer-1-FeedForward-Norm[0]
+                                                                 Transformer-1-FeedForward-Norm[0]
+__________________________________________________________________________________________________
+Transformer-2-MultiHeadSelfAtte (None, None, 768)    0           Transformer-2-MultiHeadSelfAttent
+__________________________________________________________________________________________________
+Transformer-2-MultiHeadSelfAtte (None, None, 768)    0           Transformer-1-FeedForward-Norm[0]
+                                                                 Transformer-2-MultiHeadSelfAttent
+__________________________________________________________________________________________________
+Transformer-2-MultiHeadSelfAtte (None, None, 768)    1536        Transformer-2-MultiHeadSelfAttent
+__________________________________________________________________________________________________
+Transformer-2-FeedForward (Feed (None, None, 768)    4722432     Transformer-2-MultiHeadSelfAttent
+__________________________________________________________________________________________________
+Transformer-2-FeedForward-Dropo (None, None, 768)    0           Transformer-2-FeedForward[0][0]  
+__________________________________________________________________________________________________
+Transformer-2-FeedForward-Add ( (None, None, 768)    0           Transformer-2-MultiHeadSelfAttent
+                                                                 Transformer-2-FeedForward-Dropout
+__________________________________________________________________________________________________
+Transformer-2-FeedForward-Norm  (None, None, 768)    1536        Transformer-2-FeedForward-Add[0][
+__________________________________________________________________________________________________
+all-token (Lambda)              (None, None, 768)    0           Transformer-2-FeedForward-Norm[0]
+__________________________________________________________________________________________________
+conv1d_1 (Conv1D)               (None, None, 256)    590080      all-token[0][0]                  
+__________________________________________________________________________________________________
+conv1d_2 (Conv1D)               (None, None, 256)    786688      all-token[0][0]                  
+__________________________________________________________________________________________________
+conv1d_3 (Conv1D)               (None, None, 256)    983296      all-token[0][0]                  
+__________________________________________________________________________________________________
+global_average_pooling1d_1 (Glo (None, 256)          0           conv1d_1[0][0]                   
+__________________________________________________________________________________________________
+global_average_pooling1d_2 (Glo (None, 256)          0           conv1d_2[0][0]                   
+__________________________________________________________________________________________________
+global_average_pooling1d_3 (Glo (None, 256)          0           conv1d_3[0][0]                   
+__________________________________________________________________________________________________
+concatenate_1 (Concatenate)     (None, 768)          0           global_average_pooling1d_1[0][0] 
+                                                                 global_average_pooling1d_2[0][0] 
+                                                                 global_average_pooling1d_3[0][0] 
+__________________________________________________________________________________________________
+cls-token (Lambda)              (None, 768)          0           Transformer-2-FeedForward-Norm[0]
+__________________________________________________________________________________________________
+dropout_1 (Dropout)             (None, 768)          0           concatenate_1[0][0]              
+__________________________________________________________________________________________________
+concatenate_2 (Concatenate)     (None, 1536)         0           cls-token[0][0]                  
+                                                                 dropout_1[0][0]                  
+__________________________________________________________________________________________________
+dense_19 (Dense)                (None, 512)          786944      concatenate_2[0][0]              
+__________________________________________________________________________________________________
+dense_20 (Dense)                (None, 13)           6669        dense_19[0][0]                   
+==================================================================================================
+Total params: 41,039,885
+Trainable params: 41,039,885
+Non-trainable params: 0
+__________________________________________________________________________________________________
+None
+Model: "model_2"
+__________________________________________________________________________________________________
+Layer (type)                    Output Shape         Param #     Connected to                     
+==================================================================================================
+Input-Token (InputLayer)        (None, None)         0                                            
+__________________________________________________________________________________________________
+Input-Segment (InputLayer)      (None, None)         0                                            
+__________________________________________________________________________________________________
+Embedding-Token (Embedding)     (None, None, 768)    16226304    Input-Token[0][0]                
+__________________________________________________________________________________________________
+Embedding-Segment (Embedding)   (None, None, 768)    1536        Input-Segment[0][0]              
+__________________________________________________________________________________________________
+Embedding-Token-Segment (Add)   (None, None, 768)    0           Embedding-Token[0][0]            
+                                                                 Embedding-Segment[0][0]          
+__________________________________________________________________________________________________
+Embedding-Position (PositionEmb (None, None, 768)    393216      Embedding-Token-Segment[0][0]    
+__________________________________________________________________________________________________
+Embedding-Norm (LayerNormalizat (None, None, 768)    1536        Embedding-Position[0][0]         
+__________________________________________________________________________________________________
+Embedding-Dropout (Dropout)     (None, None, 768)    0           Embedding-Norm[0][0]             
+__________________________________________________________________________________________________
+Transformer-0-MultiHeadSelfAtte (None, None, 768)    2362368     Embedding-Dropout[0][0]          
+                                                                 Embedding-Dropout[0][0]          
+                                                                 Embedding-Dropout[0][0]          
+__________________________________________________________________________________________________
+Transformer-0-MultiHeadSelfAtte (None, None, 768)    0           Transformer-0-MultiHeadSelfAttent
+__________________________________________________________________________________________________
+Transformer-0-MultiHeadSelfAtte (None, None, 768)    0           Embedding-Dropout[0][0]          
+                                                                 Transformer-0-MultiHeadSelfAttent
+__________________________________________________________________________________________________
+Transformer-0-MultiHeadSelfAtte (None, None, 768)    1536        Transformer-0-MultiHeadSelfAttent
+__________________________________________________________________________________________________
+Transformer-0-FeedForward (Feed (None, None, 768)    4722432     Transformer-0-MultiHeadSelfAttent
+__________________________________________________________________________________________________
+Transformer-0-FeedForward-Dropo (None, None, 768)    0           Transformer-0-FeedForward[0][0]  
+__________________________________________________________________________________________________
+Transformer-0-FeedForward-Add ( (None, None, 768)    0           Transformer-0-MultiHeadSelfAttent
+                                                                 Transformer-0-FeedForward-Dropout
+__________________________________________________________________________________________________
+Transformer-0-FeedForward-Norm  (None, None, 768)    1536        Transformer-0-FeedForward-Add[0][
+__________________________________________________________________________________________________
+Transformer-1-MultiHeadSelfAtte (None, None, 768)    2362368     Transformer-0-FeedForward-Norm[0]
+                                                                 Transformer-0-FeedForward-Norm[0]
+                                                                 Transformer-0-FeedForward-Norm[0]
+__________________________________________________________________________________________________
+Transformer-1-MultiHeadSelfAtte (None, None, 768)    0           Transformer-1-MultiHeadSelfAttent
+__________________________________________________________________________________________________
+Transformer-1-MultiHeadSelfAtte (None, None, 768)    0           Transformer-0-FeedForward-Norm[0]
+                                                                 Transformer-1-MultiHeadSelfAttent
+__________________________________________________________________________________________________
+Transformer-1-MultiHeadSelfAtte (None, None, 768)    1536        Transformer-1-MultiHeadSelfAttent
+__________________________________________________________________________________________________
+Transformer-1-FeedForward (Feed (None, None, 768)    4722432     Transformer-1-MultiHeadSelfAttent
+__________________________________________________________________________________________________
+Transformer-1-FeedForward-Dropo (None, None, 768)    0           Transformer-1-FeedForward[0][0]  
+__________________________________________________________________________________________________
+Transformer-1-FeedForward-Add ( (None, None, 768)    0           Transformer-1-MultiHeadSelfAttent
+                                                                 Transformer-1-FeedForward-Dropout
+__________________________________________________________________________________________________
+Transformer-1-FeedForward-Norm  (None, None, 768)    1536        Transformer-1-FeedForward-Add[0][
+__________________________________________________________________________________________________
+Transformer-2-MultiHeadSelfAtte (None, None, 768)    2362368     Transformer-1-FeedForward-Norm[0]
+                                                                 Transformer-1-FeedForward-Norm[0]
+                                                                 Transformer-1-FeedForward-Norm[0]
+__________________________________________________________________________________________________
+Transformer-2-MultiHeadSelfAtte (None, None, 768)    0           Transformer-2-MultiHeadSelfAttent
+__________________________________________________________________________________________________
+Transformer-2-MultiHeadSelfAtte (None, None, 768)    0           Transformer-1-FeedForward-Norm[0]
+                                                                 Transformer-2-MultiHeadSelfAttent
+__________________________________________________________________________________________________
+Transformer-2-MultiHeadSelfAtte (None, None, 768)    1536        Transformer-2-MultiHeadSelfAttent
+__________________________________________________________________________________________________
+Transformer-2-FeedForward (Feed (None, None, 768)    4722432     Transformer-2-MultiHeadSelfAttent
+__________________________________________________________________________________________________
+Transformer-2-FeedForward-Dropo (None, None, 768)    0           Transformer-2-FeedForward[0][0]  
+__________________________________________________________________________________________________
+Transformer-2-FeedForward-Add ( (None, None, 768)    0           Transformer-2-MultiHeadSelfAttent
+                                                                 Transformer-2-FeedForward-Dropout
+__________________________________________________________________________________________________
+Transformer-2-FeedForward-Norm  (None, None, 768)    1536        Transformer-2-FeedForward-Add[0][
+__________________________________________________________________________________________________
+all-token (Lambda)              (None, None, 768)    0           Transformer-2-FeedForward-Norm[0]
+__________________________________________________________________________________________________
+conv1d_1 (Conv1D)               (None, None, 256)    590080      all-token[0][0]                  
+__________________________________________________________________________________________________
+conv1d_2 (Conv1D)               (None, None, 256)    786688      all-token[0][0]                  
+__________________________________________________________________________________________________
+conv1d_3 (Conv1D)               (None, None, 256)    983296      all-token[0][0]                  
+__________________________________________________________________________________________________
+global_average_pooling1d_1 (Glo (None, 256)          0           conv1d_1[0][0]                   
+__________________________________________________________________________________________________
+global_average_pooling1d_2 (Glo (None, 256)          0           conv1d_2[0][0]                   
+__________________________________________________________________________________________________
+global_average_pooling1d_3 (Glo (None, 256)          0           conv1d_3[0][0]                   
+__________________________________________________________________________________________________
+concatenate_1 (Concatenate)     (None, 768)          0           global_average_pooling1d_1[0][0] 
+                                                                 global_average_pooling1d_2[0][0] 
+                                                                 global_average_pooling1d_3[0][0] 
+__________________________________________________________________________________________________
+cls-token (Lambda)              (None, 768)          0           Transformer-2-FeedForward-Norm[0]
+__________________________________________________________________________________________________
+dropout_1 (Dropout)             (None, 768)          0           concatenate_1[0][0]              
+__________________________________________________________________________________________________
+concatenate_2 (Concatenate)     (None, 1536)         0           cls-token[0][0]                  
+                                                                 dropout_1[0][0]                  
+__________________________________________________________________________________________________
+dense_19 (Dense)                (None, 512)          786944      concatenate_2[0][0]              
+__________________________________________________________________________________________________
+dense_20 (Dense)                (None, 13)           6669        dense_19[0][0]                   
+==================================================================================================
+Total params: 41,039,885
+Trainable params: 41,039,885
+Non-trainable params: 0
+__________________________________________________________________________________________________
+None
+/root/miniconda3/lib/python3.8/site-packages/tensorflow/python/framework/indexed_slices.py:433: UserWarning: Converting sparse IndexedSlices to a dense Tensor of unknown shape. This may consume a large amount of memory.
+  warnings.warn(
+Epoch 1/10
+232/232 [==============================] - 615s 3s/step - loss: 2.0101 - accuracy: 0.3454 - val_loss: 1.6324 - val_accuracy: 0.4586
+/root/miniconda3/lib/python3.8/site-packages/keras/callbacks/callbacks.py:843: RuntimeWarning: Early stopping conditioned on metric `var_loss` which is not available. Available metrics are: val_loss,val_accuracy,loss,accuracy
+  warnings.warn(
+
+Epoch 00001: val_loss improved from inf to 1.63241, saving model to ./model/best_model.weights
+Epoch 2/10
+232/232 [==============================] - 609s 3s/step - loss: 1.5242 - accuracy: 0.5086 - val_loss: 1.2317 - val_accuracy: 0.5511
+
+Epoch 00002: val_loss improved from 1.63241 to 1.23166, saving model to ./model/best_model.weights
+Epoch 3/10
+232/232 [==============================] - 592s 3s/step - loss: 1.3302 - accuracy: 0.5606 - val_loss: 1.2173 - val_accuracy: 0.6022
+
+Epoch 00003: val_loss improved from 1.23166 to 1.21734, saving model to ./model/best_model.weights
+Epoch 4/10
+232/232 [==============================] - 582s 3s/step - loss: 1.2141 - accuracy: 0.6082 - val_loss: 0.9971 - val_accuracy: 0.6058
+
+Epoch 00004: val_loss improved from 1.21734 to 0.99707, saving model to ./model/best_model.weights
+Epoch 5/10
+232/232 [==============================] - 580s 2s/step - loss: 1.1265 - accuracy: 0.6342 - val_loss: 0.7431 - val_accuracy: 0.6131
+
+Epoch 00005: val_loss improved from 0.99707 to 0.74313, saving model to ./model/best_model.weights
+Epoch 6/10
+232/232 [==============================] - 577s 2s/step - loss: 1.0612 - accuracy: 0.6527 - val_loss: 1.1941 - val_accuracy: 0.6180
+
+Epoch 00006: val_loss did not improve from 0.74313
+Epoch 7/10
+232/232 [==============================] - 574s 2s/step - loss: 1.0080 - accuracy: 0.6711 - val_loss: 0.6606 - val_accuracy: 0.6156
+
+Epoch 00007: val_loss improved from 0.74313 to 0.66061, saving model to ./model/best_model.weights
+
+Epoch 8/10
+232/232 [==============================] - 572s 2s/step - loss: 0.9538 - accuracy: 0.6884 - val_loss: 1.0608 - val_accuracy: 0.6192
+
+Epoch 00008: val_loss did not improve from 0.66061
+Epoch 9/10
+232/232 [==============================] - 577s 2s/step - loss: 0.8979 - accuracy: 0.7027 - val_loss: 0.8837 - val_accuracy: 0.6192
+
+Epoch 00009: val_loss did not improve from 0.66061 
+
+Epoch 10/10
+207/232 [=========================>....] - ETA: 1:00 - loss: 0.8515 - accuracy: 0.7277
